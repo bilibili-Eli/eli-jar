@@ -25,10 +25,15 @@ public class Dictionary extends EliModel {
     @Column(name = "parent_id")
     private String parentId;
     /**
+     * 是否父类
+     */
+    @Column(name = "is_parent")
+    private Integer isParent;
+    /**
      * 字典序列
      */
     @Column(name = "dictionary_seq")
-    private String dictionarySeq;
+    private Integer dictionarySeq;
     /**
      * 字典名称
      */

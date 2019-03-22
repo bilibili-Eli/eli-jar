@@ -85,4 +85,15 @@ public class EliController<Service, Model, Vo extends Model> {
     public EliApiResult selectById(@RequestBody Model model, HttpServletRequest request) {
         return util.invoke(EliControllerUtil.SELECT_BY_ID, impl, model, request);
     }
+
+    /**
+     * 条件查询
+     *
+     * @param model 实体类
+     * @return 通用返回类
+     */
+    @RequestMapping(value = "select", method = RequestMethod.POST)
+    public EliApiResult select(@RequestBody Model model, HttpServletRequest request) {
+        return util.invoke(EliControllerUtil.SELECT, impl, model, request);
+    }
 }

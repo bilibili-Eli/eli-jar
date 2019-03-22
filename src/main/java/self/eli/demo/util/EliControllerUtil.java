@@ -27,6 +27,10 @@ public class EliControllerUtil<Impl, Model> {
      * 插入信息
      */
     public static String INSERT = "insert";
+    /**
+     * 条件查询
+     */
+    public static String SELECT = "select";
 
     /**
      * controller通用方法

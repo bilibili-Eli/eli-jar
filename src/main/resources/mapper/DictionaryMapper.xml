@@ -4,6 +4,7 @@
     <resultMap id="Dictionary" type="self.eli.demo.model.Dictionary">
         <id column="dictionary_id" property="dictionaryId"/>
         <result column="parent_id" property="parentId"/>
+        <result column="is_parent" property="isParent"/>
         <result column="dictionary_seq" property="dictionarySeq"/>
         <result column="dictionary_name" property="dictionaryName"/>
         <result column="create_on" property="createOn" javaType="date"/>
@@ -17,6 +18,7 @@
     <resultMap id="DictionaryVo" type="self.eli.demo.vo.DictionaryVo">
         <id column="dictionaryId" property="dictionaryId"/>
         <result column="parentId" property="parentId"/>
+        <result column="isParent" property="isParent"/>
         <result column="dictionarySeq" property="dictionarySeq"/>
         <result column="dictionaryName" property="dictionaryName"/>
         <result column="createOn" property="createOn" javaType="date"/>
@@ -29,6 +31,7 @@
     <select id="selectAll" resultMap="DictionaryVo">
         SELECT d1.dictionary_id   AS dictionaryId,
                d1.parent_id       AS parentId,
+               d1.is_parent       AS isParent,
                d1.dictionary_seq  AS dictionarySeq,
                d1.dictionary_name AS dictionaryName,
                d1.create_on       AS createOn,
@@ -37,6 +40,7 @@
                d1.modify_by       AS modifyBy,
                d2.dictionary_id,
                d2.parent_id,
+               d2.is_parent,
                d2.dictionary_seq,
                d2.dictionary_name,
                d2.create_on,

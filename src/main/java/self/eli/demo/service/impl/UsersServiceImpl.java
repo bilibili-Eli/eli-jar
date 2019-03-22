@@ -44,4 +44,9 @@ public class UsersServiceImpl implements UsersService {
     public List<Users> selectAll(Users model, HttpServletRequest request) {
         return usersMapper.selectAll();
     }
+
+    @Override
+    public List<Users> select(Users model, HttpServletRequest request) {
+        return usersMapper.select(model);
+    }
 }

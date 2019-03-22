@@ -45,4 +45,12 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param request request
      */
     List<Model> selectAll(Model model, HttpServletRequest request);
+
+    /**
+     * 条件查询
+     *
+     * @param model   model对象
+     * @param request request
+     */
+    List<Model> select(Model model, HttpServletRequest request);
 }

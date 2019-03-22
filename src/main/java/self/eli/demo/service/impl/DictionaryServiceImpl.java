@@ -44,4 +44,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     public List<Dictionary> selectAll(Dictionary model, HttpServletRequest request) {
         return dictionaryMapper.selectAll();
     }
+
+    @Override
+    public List<Dictionary> select(Dictionary model, HttpServletRequest request) {
+        return dictionaryMapper.select(model);
+    }
 }
