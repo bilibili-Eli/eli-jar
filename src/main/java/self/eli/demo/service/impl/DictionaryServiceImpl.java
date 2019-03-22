@@ -6,6 +6,40 @@ import self.eli.demo.model.Dictionary;
 import self.eli.demo.service.DictionaryService;
 import self.eli.demo.vo.DictionaryVo;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @Service
-public class DictionaryServiceImpl extends EliServiceImpl<DictionaryMapper, Dictionary, DictionaryVo> implements DictionaryService {
+public class DictionaryServiceImpl implements DictionaryService {
+
+    @Resource
+    private DictionaryMapper dictionaryMapper;
+
+    @Override
+    public void insert(DictionaryVo dictionaryVo, HttpServletRequest request) {
+        dictionaryVo.iniInsert(request);
+        dictionaryMapper.insertSelective(dictionaryVo);
+    }
+
+    @Override
+    public void update(DictionaryVo dictionaryVo, HttpServletRequest request) {
+        dictionaryVo.iniModify(request);
+        dictionaryMapper.updateByPrimaryKeySelective(dictionaryVo);
+    }
+
+    @Override
+    public void delete(Dictionary dictionary, HttpServletRequest request) {
+        dictionaryMapper.delete(dictionary);
+    }
+
+    @Override
+    public Dictionary selectById(Dictionary dictionary, HttpServletRequest request) {
+        return dictionaryMapper.selectOne(dictionary);
+    }
+
+    @Override
+    public List<Dictionary> selectAll(Dictionary model, HttpServletRequest request) {
+        return dictionaryMapper.select(model);
+    }
 }
