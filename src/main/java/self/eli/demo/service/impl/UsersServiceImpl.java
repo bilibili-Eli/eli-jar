@@ -9,6 +9,7 @@ import self.eli.demo.vo.UsersVo;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Service("usersServiceImpl")
 public class UsersServiceImpl implements UsersService {
@@ -18,6 +19,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void insert(UsersVo usersVo, HttpServletRequest request) {
+        usersVo.setUserId(UUID.randomUUID().toString());
         usersVo.iniInsert(request);
         usersMapper.insert(usersVo);
     }

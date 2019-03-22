@@ -9,6 +9,7 @@ import self.eli.demo.vo.DictionaryVo;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DictionaryServiceImpl implements DictionaryService {
@@ -18,6 +19,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Override
     public void insert(DictionaryVo dictionaryVo, HttpServletRequest request) {
+        dictionaryVo.setDictionaryId(UUID.randomUUID().toString());
         dictionaryVo.iniInsert(request);
         dictionaryMapper.insertSelective(dictionaryVo);
     }
@@ -40,6 +42,6 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Override
     public List<Dictionary> selectAll(Dictionary model, HttpServletRequest request) {
-        return dictionaryMapper.select(model);
+        return dictionaryMapper.selectAll();
     }
 }

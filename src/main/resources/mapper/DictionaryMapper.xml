@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="self.eli.demo.mapper.DictionaryMapper">
+    <resultMap id="Dictionary" type="self.eli.demo.model.Dictionary">
+        <id column="dictionary_id" property="dictionaryId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="dictionary_seq" property="dictionarySeq"/>
+        <result column="dictionary_name" property="dictionaryName"/>
+        <result column="create_on" property="createOn" javaType="date"/>
+        <result column="modify_on" property="modifyOn" javaType="date"/>
+        <result column="create_by" property="createBy"/>
+        <result column="modify_by" property="modifyBy"/>
+        <result column="status" property="status"/>
+        <result column="owner" property="owner"/>
+    </resultMap>
+
+    <resultMap id="DictionaryVo" type="self.eli.demo.vo.DictionaryVo">
+        <id column="dictionaryId" property="dictionaryId"/>
+        <result column="parentId" property="parentId"/>
+        <result column="dictionarySeq" property="dictionarySeq"/>
+        <result column="dictionaryName" property="dictionaryName"/>
+        <result column="createOn" property="createOn" javaType="date"/>
+        <result column="modifyOn" property="modifyOn" javaType="date"/>
+        <result column="createBy" property="createBy"/>
+        <result column="modifyBy" property="modifyBy"/>
+        <collection property="children" resultMap="Dictionary"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="DictionaryVo">
+        SELECT d1.dictionary_id   AS dictionaryId,
+               d1.parent_id       AS parentId,
+               d1.dictionary_seq  AS dictionarySeq,
+               d1.dictionary_name AS dictionaryName,
+               d1.create_on       AS createOn,
+               d1.create_by       AS createBy,
+               d1.modify_on       AS modifyOn,
+               d1.modify_by       AS modifyBy,
+               d2.dictionary_id,
+               d2.parent_id,
+               d2.dictionary_seq,
+               d2.dictionary_name,
+               d2.create_on,
+               d2.create_by,
+               d2.modify_on,
+               d2.modify_by
+        FROM test_db.dictionary d1
+                 LEFT JOIN test_db.dictionary d2 ON d2.parent_id = d1.dictionary_id
+        WHERE d1.parent_id IS NULL
+          AND d2.`status` = '0'
+          AND d1.`status` = '0';
+    </select>
+</mapper>
