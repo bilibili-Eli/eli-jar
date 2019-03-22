@@ -40,6 +40,6 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public List<Users> selectAll(Users model, HttpServletRequest request) {
-        return usersMapper.select(model);
+        return usersMapper.selectAll();
     }
 }

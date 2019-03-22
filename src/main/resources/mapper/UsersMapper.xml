@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="self.eli.demo.mapper.UsersMapper">
 
+    <resultMap id="UsersVo" type="self.eli.demo.vo.UsersVo">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="user_mail" property="userMail"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="create_on" property="createOn" javaType="date"/>
+        <result column="modify_on" property="modifyOn" javaType="date"/>
+        <result column="create_by" property="createBy"/>
+        <result column="modify_by" property="modifyBy"/>
+        <result column="status" property="status"/>
+        <result column="owner" property="owner"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="UsersVo">
+        select *
+        from users
+    </select>
 </mapper>
