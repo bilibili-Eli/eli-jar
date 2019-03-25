@@ -1,9 +1,13 @@
 package self.eli.demo.service.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import self.eli.demo.exception.EliException;
 import self.eli.demo.mapper.UsersMapper;
+import self.eli.demo.model.EliApiResult;
 import self.eli.demo.model.Users;
 import self.eli.demo.service.UsersService;
+import self.eli.demo.util.EliApiCode;
 import self.eli.demo.vo.UsersVo;
 
 import javax.annotation.Resource;
@@ -48,5 +52,23 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public List<Users> select(Users model, HttpServletRequest request) {
         return usersMapper.select(model);
+    }
+
+    @Override
+    public EliApiResult login(Users users, HttpServletRequest request) throws EliException {
+        try {
+            Users user = usersMapper.selectOne(users);
+            if (user != null) {
+                if (user.getStatus().equals("1")) return EliApiResult.fail(EliApiCode.USER_ACCOUNT_FORBIDDEN);
+                UsersVo usersVo = new UsersVo();
+                BeanUtils.copyProperties(user, usersVo);
+                usersVo.setToken(UUID.randomUUID().toString());
+                return EliApiResult.success(EliApiCode.LOGIN_SUCCESS.getMsg(), usersVo);
+            } else {
+                return EliApiResult.fail(EliApiCode.USER_ACCOUNT_ERROR);
+            }
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.USER_DATA_EXCEPTION);
+        }
     }
 }

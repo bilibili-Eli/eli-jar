@@ -11,5 +11,5 @@ import self.eli.demo.model.Users;
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class UsersVo extends Users {
-    private String test;
+    private String token;
 }

@@ -1,5 +1,6 @@
 package self.eli.demo.service;
 
+import self.eli.demo.exception.EliException;
 import self.eli.demo.model.EliModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param vo      vo对象
      * @param request request
      */
-    void insert(Vo vo, HttpServletRequest request);
+    void insert(Vo vo, HttpServletRequest request) throws EliException;
 
     /**
      * 更新
@@ -20,7 +21,7 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param vo      vo对象
      * @param request request
      */
-    void update(Vo vo, HttpServletRequest request);
+    void update(Vo vo, HttpServletRequest request) throws EliException;
 
     /**
      * 删除
@@ -28,7 +29,7 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param model   model对象
      * @param request request
      */
-    void delete(Model model, HttpServletRequest request);
+    void delete(Model model, HttpServletRequest request) throws EliException;
 
     /**
      * 查询详情
@@ -36,7 +37,7 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param model   model对象
      * @param request request
      */
-    Model selectById(Model model, HttpServletRequest request);
+    Model selectById(Model model, HttpServletRequest request) throws EliException;
 
     /**
      * 查询全部
@@ -44,7 +45,7 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param model   model对象
      * @param request request
      */
-    List<Model> selectAll(Model model, HttpServletRequest request);
+    List<Model> selectAll(Model model, HttpServletRequest request) throws EliException;
 
     /**
      * 条件查询
@@ -52,5 +53,5 @@ public interface EliService<Model extends EliModel, Vo extends Model> {
      * @param model   model对象
      * @param request request
      */
-    List<Model> select(Model model, HttpServletRequest request);
+    List<Model> select(Model model, HttpServletRequest request) throws EliException;
 }
