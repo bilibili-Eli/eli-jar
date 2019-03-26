@@ -2,7 +2,6 @@ package self.eli.demo.service.impl;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,19 +16,25 @@ public abstract class BaseRedisServiceImpl<T> {
     protected RedisTemplate<String, Object> redisTemplate;
     @Resource
     protected HashOperations<String, String, T> hashOperations;
+    /**
+     * redis散列
+     */
+    public static String ELI = "eli";
 
     /**
      * 存入redis中的key
      *
      * @return String
      */
-    protected abstract String getRedisKey();
+    protected String getRedisKey() {
+        return ELI;
+    }
 
     /**
      * 添加
      *
      * @param key    key
-     * @param model 对象
+     * @param model  对象
      * @param expire 过期时间(单位:秒),传入 -1 时表示不设置过期时间
      */
     public void put(String key, T model, long expire) {

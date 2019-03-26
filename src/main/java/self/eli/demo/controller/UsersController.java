@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * 用户类接口
+ */
 @RestController
 @RequestMapping("users")
 public class UsersController extends EliController<UsersService, Users, UsersVo> {

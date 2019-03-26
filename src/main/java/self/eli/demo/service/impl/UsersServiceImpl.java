@@ -22,11 +22,6 @@ public class UsersServiceImpl extends BaseRedisServiceImpl<String> implements Us
     private UsersMapper usersMapper;
 
     @Override
-    protected String getRedisKey() {
-        return "ELI";
-    }
-
-    @Override
     public void insert(UsersVo usersVo, HttpServletRequest request) {
         usersVo.setUserId(UUID.randomUUID().toString());
         usersVo.iniInsert(request);
