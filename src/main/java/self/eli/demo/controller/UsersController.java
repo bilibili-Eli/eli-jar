@@ -51,7 +51,7 @@ public class UsersController extends EliController<UsersService, Users, UsersVo>
     public EliApiResult info(@RequestHeader(name = "user-token") String token, HttpServletRequest request) {
         Map<String, List> admin = new HashMap<>();
         List<String> roles = new ArrayList<>();
-        roles.add("admin");
+        roles.add("vip");
         admin.put("roles", roles);
         return EliApiResult.success(admin);
     }
@@ -59,12 +59,15 @@ public class UsersController extends EliController<UsersService, Users, UsersVo>
     /**
      * 退出登录
      *
-     * @param token   用户token
      * @param request request域
      * @return 用户token及详情
      */
     @RequestMapping("logout")
-    public EliApiResult logout(@RequestHeader(name = "user-token") String token, HttpServletRequest request) {
-        return EliApiResult.success();
+    public EliApiResult logout(HttpServletRequest request) {
+        try {
+            return impl.logout(request);
+        } catch (EliException e) {
+            return EliApiResult.fail(e.getCode() + "：" + e.getMessage());
+        }
     }
 }

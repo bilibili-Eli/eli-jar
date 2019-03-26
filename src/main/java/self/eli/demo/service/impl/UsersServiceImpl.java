@@ -16,10 +16,16 @@ import java.util.List;
 import java.util.UUID;
 
 @Service("usersServiceImpl")
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl extends BaseRedisServiceImpl<String> implements UsersService {
 
     @Resource
     private UsersMapper usersMapper;
+
+
+    @Override
+    protected String getRedisKey() {
+        return "ELI";
+    }
 
     @Override
     public void insert(UsersVo usersVo, HttpServletRequest request) {
@@ -62,7 +68,9 @@ public class UsersServiceImpl implements UsersService {
                 if (user.getStatus().equals("1")) return EliApiResult.fail(EliApiCode.USER_ACCOUNT_FORBIDDEN);
                 UsersVo usersVo = new UsersVo();
                 BeanUtils.copyProperties(user, usersVo);
-                usersVo.setToken(UUID.randomUUID().toString());
+                String uuid = UUID.randomUUID().toString();
+                put(uuid, usersVo.getUserId(), 1800);
+                usersVo.setToken(uuid);
                 return EliApiResult.success(EliApiCode.LOGIN_SUCCESS.getMsg(), usersVo);
             } else {
                 return EliApiResult.fail(EliApiCode.USER_ACCOUNT_ERROR);
@@ -71,4 +79,16 @@ public class UsersServiceImpl implements UsersService {
             throw new EliException(EliApiCode.USER_DATA_EXCEPTION);
         }
     }
+
+    @Override
+    public EliApiResult logout(HttpServletRequest request) throws EliException {
+        String token = request.getHeader("user-token");
+        if (token != null) {
+            remove(token);
+            return EliApiResult.success();
+        } else {
+            return EliApiResult.fail(EliApiCode.USER_DATA_EXCEPTION);
+        }
+    }
+
 }

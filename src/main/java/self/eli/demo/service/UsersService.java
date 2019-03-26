@@ -16,4 +16,12 @@ public interface UsersService extends EliService<Users, UsersVo> {
      * @return 用户扩展实体
      */
     EliApiResult login(Users users, HttpServletRequest request) throws EliException;
+
+    /**
+     * 退出登录
+     *
+     * @param request request域
+     * @return 用户扩展实体
+     */
+    EliApiResult logout(HttpServletRequest request) throws EliException;
 }
