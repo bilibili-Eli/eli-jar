@@ -21,7 +21,6 @@ public class UsersServiceImpl extends BaseRedisServiceImpl<String> implements Us
     @Resource
     private UsersMapper usersMapper;
 
-
     @Override
     protected String getRedisKey() {
         return "ELI";

@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Administrator on 2017/3/1 14:57.
  */
-@Service
 public abstract class BaseRedisServiceImpl<T> {
     @Resource
     protected RedisTemplate<String, Object> redisTemplate;
