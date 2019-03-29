@@ -64,12 +64,15 @@ public class UsersServiceImpl extends BaseRedisServiceImpl<String> implements Us
                 BeanUtils.copyProperties(user, usersVo);
                 String uuid = UUID.randomUUID().toString();
                 put(uuid, usersVo.getUserId(), 1800);
+                System.out.println("登录用户id---------->" + get(uuid));
+                System.out.println("目前在线用户数---------->" + count());
                 usersVo.setToken(uuid);
                 return EliApiResult.success(EliApiCode.LOGIN_SUCCESS.getMsg(), usersVo);
             } else {
                 return EliApiResult.fail(EliApiCode.USER_ACCOUNT_ERROR);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new EliException(EliApiCode.USER_DATA_EXCEPTION);
         }
     }
